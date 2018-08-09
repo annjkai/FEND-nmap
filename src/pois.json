@@ -1,0 +1,51 @@
+[
+            {
+                "id": "000",
+                "title": "Battle of the Nations Monument",
+                "location": {"lat": 51.3124, "lng": 12.4133}
+            },
+            {
+                "id": "001",
+                "title": "St. Thomas Church",
+                "location": {"lat": 51.3393, "lng": 12.3725}
+            },
+            {
+                "id": "002",
+                "title": "Leipzig Opera",
+                "location": {"lat": 51.3404, "lng": 12.3814}
+            },
+            {
+                "id": "003",
+                "title": "Leipzig Zoological Garden",
+                "location": {"lat": 51.3486, "lng": 12.3707}
+            },
+            {
+                "id": "004",
+                "title": "Old Town Hall",
+                "location": {"lat": 51.3403, "lng": 12.3752}
+            },
+            {
+                "id": "005",
+                "title": "New Town Hall",
+                "location": {"lat": 51.3361, "lng": 12.3728}
+            },
+            {
+                "id": "006",
+                "title": "Baumwollspinnerei", 
+                "location": {"lat": 51.3260, "lng": 12.3175}
+            },
+            {
+                "id": "007",
+                "title": "Red Bull Arena",
+                "location": {"lat": 51.3456, "lng": 12.3474}
+            },
+            {
+                "id": "008",
+                "title": "Clara-Zetkin Park",
+                "location": {"lat": 51.3303, "lng": 12.3592}
+            },
+            {"id": "009",
+                "title": "Zeitgeschichtliches Forum",
+                "location": {"lat": 51.3398, "lng": 12.3757}
+            }
+        ]
