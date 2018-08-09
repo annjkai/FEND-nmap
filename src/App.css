@@ -1,0 +1,157 @@
+/*==== fonts ====*/
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Source+Serif+Pro')
+
+/*==== styling for app ====*/
+html, body, .root {
+  height: 100%;
+}
+body, .app {
+  background: white;
+  font-family: 'Montserrat', sans-serif;
+}
+.App {
+  text-align: center;
+}
+
+/*==== styling for sidebar ====*/
+.sidebar-container {
+    width: 30%;
+    height: 100vh;
+    border: 1px solid grey;
+    text-align: center;
+    display: inline-block;
+    overflow-y: scroll;
+}
+.main-heading {
+    font-family: 'Source Serif Pro', serif;
+    text-transform: uppercase;
+    font-size: 2em;
+    letter-spacing: 5px;
+    padding: 10px 0 10px 0;
+}
+.sub-heading {
+    font-size: 1.25em;
+    padding: 10px 0 10px 0;
+}
+.sidebar-places-list {
+    list-style: none;
+    text-align: left;
+    line-height: 2em;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+a:active {
+  color: black;
+}
+
+a:visited {
+  color: #0066FF;
+}
+
+.sidebar-attribution {
+    font-size: 0.80em;
+    position: absolute;
+    bottom: 0;
+    line-height: 0.3em;
+    margin-left: 5%;
+}
+
+@media (max-width: 800px) {
+  .sidebar-container {
+    width: 100%;
+    height: 50vh;
+    }
+    .main-heading {
+        font-size: 1em;
+    }
+    .sub-heading {
+        font-size: 1em;
+    }
+ }
+
+ @media (max-width: 900px) {
+     .main-heading {
+         font-size: 1.5em;
+     }
+     .sub-heading {
+         font-size: 1.1em;
+     }
+     .sidebar-attribution {
+         font-size: 0.75em;
+         margin-left: 2%;
+     }
+ }
+
+/*==== styling for searchbar ====*/
+.search-places {
+    flex: 1;
+}
+.search-places-bar {
+  display: block;
+  margin: 0 auto;
+  width: 90%;
+  z-index: 5;
+  box-shadow: 0 10px 20px 0 rgba(0,0,0,0.15);
+  border: 1px solid grey;
+  border-radius: 5px;
+}
+.search-places-bar input {
+    width: 100%;
+    padding: 15px 10px;
+    font-size: 1em;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+}
+.search-places-input {
+
+}
+
+@media (max-width: 800px) {
+    .search-places-bar {
+        width: 80%;
+        height: 50%;
+    }
+    .search-places-bar input{
+        font-size: 1em;
+        padding: 5px 10px;
+    }
+}
+
+ /*==== styling for places list ====*/
+ .sidebar-places-container {
+     width: 100%;
+     display: flex;
+     position: relative;
+ }
+ .sidebar-places-list {
+
+ }
+
+ @media (max-width: 900px) {
+     .sidebar-places-list {
+        font-size: 0.9em;
+     }
+ }
+
+/*==== styling for map ====*/
+.map-style {
+    height: 100vh;
+    width: 70%;
+    display: inline-block;
+    float: right
+}
+
+@media (max-width: 800px) {
+  .map-style {
+    width: 100%;
+    height: 50vh;
+    }
+ }
