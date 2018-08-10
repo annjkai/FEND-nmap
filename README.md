@@ -16,8 +16,8 @@ As part of the project requirements, I used the [Google Maps API](https://cloud.
 
 
 
-## THANKS
+## Credit
 
-This was a very challenging project, and the help and advice of fellow Scholarship recipients was priceless. I wanted to thank by name Mariola Karpiewska, David Garrood, Alain Cadenat...
+This was a very challenging project, and the help and advice of fellow Scholarship recipients was priceless. I wanted to thank by name Mariola Karpiewska, David Garrood, Alain Cadenat and Antje Lemberg.
 
 In addition, this guide was absolutely invaluable in making the map work in React without using a package: https://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/
