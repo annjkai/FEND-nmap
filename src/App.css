@@ -74,9 +74,12 @@ a:visited {
     .sub-heading {
         font-size: 1em;
     }
+    .sidebar-attribution {
+        width: 100%;
+    }
  }
 
- @media (max-width: 900px) {
+ @media (max-width: 1000px) {
      .main-heading {
          font-size: 1.5em;
      }

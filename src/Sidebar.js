@@ -33,7 +33,7 @@ class Sidebar extends Component {
                 <div className="sidebar-places-container" role="listbox">
                     <ul className="sidebar-places-list">
                             {searchedMapPoints.map((mapPoint) =>
-                                <li key={mapPoint.id}>
+                                <li key={mapPoint.id} id={mapPoint.id}>
                                     <a role="listitem"
                                        tabIndex="0">
                                        {mapPoint.title}
