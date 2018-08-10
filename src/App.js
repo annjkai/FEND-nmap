@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Route } from 'react-router-dom';
+import * as pois from './pois.json';
 import Sidebar from './Sidebar';
 import Map from './Map';
 import ErrorBoundary from './ErrorBoundary';
-//import axios from 'axios';
-//import escapeRegExp from 'escape-string-regexp';
+import escapeRegExp from 'escape-string-regexp';
 
+//import axios from 'axios';
 /* global google */
 
 window.gm_authFailure = function() {
@@ -15,15 +16,42 @@ window.gm_authFailure = function() {
 
 class App extends Component {
 
+    state = {
+        //map: ''
+        mapPoints: pois,
+        searchedMapPoints: [],
+        query: ''
+    }
+
+    componentDidMount() {
+        this.setState({ searchedMapPoints: this.state.mapPoints })
+    }
+
+    //filters through points of interest
+    searchMapPoints = (query) => {
+        this.setState({ query })
+        let { mapPoints } = this.state
+        if (query) {
+            const match = new RegExp(escapeRegExp(query), 'i')
+            this.setState({searchedMapPoints: mapPoints.filter((mapPoint) => match.test(mapPoint.title))})
+        } else {
+            this.setState({searchedMapPoints: mapPoints})
+        }
+    }
 
   render() {
+    let { mapPoints, searchedMapPoints } = this.state
     return (
         <div className="app">
             {/*Route to Sidebar.js*/
             /*Route to Map.js*/}
             <Route exact path="/" render={() => (
                 <div>
-                    <Sidebar />
+                    <Sidebar
+                        mapPoints={mapPoints}
+                        searchedMapPoints={searchedMapPoints}
+                        searchMapPoints={this.searchMapPoints.bind(this)}
+                         />
                     <Map />
                 </div>
             )} />

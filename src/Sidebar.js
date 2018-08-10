@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import './App.css';
-//import escapeRegExp from 'escape-string-regexp';
 
 class Sidebar extends Component {
+    //has mapPoints props
 
     render() {
-
+        let { searchMapPoints, query, searchedMapPoints } = this.props
         return (
             <div className="sidebar-container" role="menu">
                 <h1 className="main-heading" aria-label="Welcome to Leipzig heading">Welcome to Leipzig!</h1>
@@ -15,12 +15,16 @@ class Sidebar extends Component {
                 {/*search bar*/}
                 <div className="search-places">
                     <div className="search-places-bar">
-                        <div            className="search-places-input"            tabIndex="0">
+                        <div className="search-places-input"
+                             tabIndex="0">
                             <input
                                 type="text"
                                 placeholder="Search for attractions"
                                 aria-label="Search for attractions"
-                                role="search"/>
+                                role="search"
+                                value={query}
+                                onChange={(event) => searchMapPoints(event.target.value)}
+                                />
                         </div>
                     </div>
                 </div>
@@ -28,12 +32,14 @@ class Sidebar extends Component {
                 {/*list of places*/}
                 <div className="sidebar-places-container" role="listbox">
                     <ul className="sidebar-places-list">
-
-                            <li>
-                                <a role="listitem"
-                                   tabIndex="0">
-                                </a>
-                            </li>
+                            {searchedMapPoints.map((mapPoint) =>
+                                <li key={mapPoint.id}>
+                                    <a role="listitem"
+                                       tabIndex="0">
+                                       {mapPoint.title}
+                                    </a>
+                                </li>
+                            )}
                     </ul>
                 </div>
 
