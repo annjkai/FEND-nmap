@@ -28,10 +28,12 @@ class App extends Component {
         window.initMap = this.initMap
         //async loading of the Google Maps script
         loadJS('https://maps.googleapis.com/maps/api/js?key=AIzaSyAvTTYIbLSapu-D1mVwX7NWEaJ_FqRF06s&v=3&callback=initMap')
-        //sets the state to contain all mapPoints by default
-        this.setState({ searchedMapPoints: this.state.mapPoints })
+        //sets the state to contain all mapPoints & markers by default
+        this.setState({
+            searchedMapPoints: this.state.mapPoints,
+            searchedMarkers: this.props.markers
+         })
     }
-
 
     initMap = () => {
         let map = new google.maps.Map(document.getElementById('map'),{
@@ -117,10 +119,25 @@ class App extends Component {
         let { mapPoints, markers } = this.state
         if (query) {
             const match = new RegExp(escapeRegExp(query), 'i')
-            this.setState({searchedMapPoints: mapPoints.filter((mapPoint) => match.test(mapPoint.title))
+            this.setState({
+                searchedMapPoints: mapPoints.filter((mapPoint) => match.test(mapPoint.title)),
+                searchedMarkers: markers.filter((marker) => match.test(marker.title))
             })
         } else {
-            this.setState({searchedMapPoints: mapPoints})
+            this.setState({
+                searchedMapPoints: mapPoints,
+                searchedMarkers: markers
+            })
+            //else hide marker
+        }
+    }
+
+    toggleMarkerVisibility = (markers) => {
+        let { searchedMarkers, searchedMapPoints } = this.state
+        if (searchedMarkers.title === searchedMapPoints.title) {
+            this.state.markers.setVisible(true)
+        } else {
+            this.state.markers.setVisible(false)
         }
     }
 
