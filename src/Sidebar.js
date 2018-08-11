@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import './App.css';
 
 class Sidebar extends Component {
-    //has mapPoints props
+    //has markers props
+
+    onMarkerClick = (markers) => {
+        console.log("i was clicked");
+    }
 
     render() {
         let { searchMapPoints, query, searchedMapPoints } = this.props

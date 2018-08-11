@@ -31,7 +31,7 @@ class App extends Component {
         //sets the state to contain all mapPoints & markers by default
         this.setState({
             searchedMapPoints: this.state.mapPoints,
-            searchedMarkers: this.props.markers
+            searchedMarkers: this.state.markers
          })
     }
 
@@ -57,9 +57,6 @@ class App extends Component {
                 animation: google.maps.Animation.DROP,
                 id: index
             })
-
-            //push markers to state
-            markers.push(marker)
 
             //marker is briefly animated when clicked
             marker.addListener('click', function() {
@@ -89,6 +86,9 @@ class App extends Component {
                 }, 100)
             })
 
+            //push markers to state
+            markers.push(marker)
+
             return ''
             /*still in map method*/
         })
@@ -113,7 +113,7 @@ class App extends Component {
     }
     /****END INITMAP****/
 
-    //filters through points of interest & update UI based on result
+    //filters through points of interest & updates UI based on result
     searchMapPoints = (query) => {
         this.setState({ query })
         let { mapPoints, markers } = this.state
@@ -123,26 +123,35 @@ class App extends Component {
                 searchedMapPoints: mapPoints.filter((mapPoint) => match.test(mapPoint.title)),
                 searchedMarkers: markers.filter((marker) => match.test(marker.title))
             })
+
+            this.toggleMarkerVisibility()
+
         } else {
             this.setState({
                 searchedMapPoints: mapPoints,
                 searchedMarkers: markers
             })
             //else hide marker
+            //this.toggleMarkerVisibility()
         }
     }
 
-    toggleMarkerVisibility = (markers) => {
-        let { searchedMarkers, searchedMapPoints } = this.state
-        if (searchedMarkers.title === searchedMapPoints.title) {
-            this.state.markers.setVisible(true)
-        } else {
-            this.state.markers.setVisible(false)
-        }
+    toggleMarkerVisibility = (searchedMarkers, markers) => {
+        //console.log("searched markers " + searchedMarkers);
+        //console.log("markers " + markers);
+        //console.log(markers.getId("001"));
     }
+
+    /*
+    Show all markers by default
+    As list items get filtered, check if they share id with marker.
+    If they DO NOT share id with lit item, hide them/toggle visibility to false
+    If they DO share id, keep displaying
+    (Restore visibility once they share id)
+    */
 
   render() {
-    let { mapPoints, searchedMapPoints } = this.state
+    let { mapPoints, searchedMapPoints, markers } = this.state
     return (
         <div className="app">
             {/*Route to Sidebar.js*/
@@ -152,6 +161,7 @@ class App extends Component {
                     <Sidebar
                         mapPoints={mapPoints}
                         searchedMapPoints={searchedMapPoints}
+                        markers={markers}
                         searchMapPoints={this.searchMapPoints.bind(this)}
                          />
                     <Map />
