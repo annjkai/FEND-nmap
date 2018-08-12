@@ -4,12 +4,13 @@ import './App.css';
 class Sidebar extends Component {
 
     /*check whether the marker and the mapPoint share a title - if yes, call marker animation on list item click via onChange method, see here: https://github.com/hpneo/gmaps/issues/40*/
-    triggerMarkerAnimation = (mapPoint) => {
+    triggerMarkerAnimation = (mapPoints) => {
         let { markers } = this.props
         markers.map((marker) => {
-            if(marker.title === mapPoint) {
+            if(marker.title === mapPoints) {
                 window.google.maps.event.trigger(marker, 'click')
             }
+            return ''
         })
     }
 

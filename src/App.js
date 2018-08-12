@@ -75,7 +75,7 @@ class App extends Component {
                 fillInfoWindow(this, mapInfoWindow)
             })
 
-            const listItemId = document.getElementById(mapPoint.id)
+            //const listItemId = document.getElementById(mapPoint.id)
 
             //event listener to activate markers when list item is clicked
             /*google.maps.event.addDomListener(listItemId, 'click', function() {
@@ -124,7 +124,7 @@ class App extends Component {
                 searchedMarkers: markers.filter((marker) => match.test(marker.title))
             })
 
-            this.toggleMarkerVisibility()
+            //this.toggleMarkerVisibility()
 
         } else {
             this.setState({
@@ -136,11 +136,16 @@ class App extends Component {
         }
     }
 
-    toggleMarkerVisibility = (searchedMarkers, markers) => {
-        //console.log("searched markers " + searchedMarkers);
-        //console.log("markers " + markers);
-        //console.log(markers.getId("001"));
-    }
+    /*toggleMarkerVisibility = (mapPoints) => {
+        let { markers } = this.state
+        markers.map((marker) => {
+            if (marker.id === mapPoints) {
+                marker.setVisible(true)
+            } else {
+                marker.setVisible(false)
+            }
+        })
+    }*/
 
     /*
     Show all markers by default
