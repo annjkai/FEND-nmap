@@ -121,22 +121,22 @@ class App extends Component {
         if (query) {
             const match = new RegExp(escapeRegExp(query), 'i')
             markers.map((marker) => marker.setVisible(false))
-            this.setState({
-                searchedMapPoints: mapPoints.filter((mapPoint) => match.test(mapPoint.title)),
-                searchedMarkers: markers.filter((marker) => match.test(marker.title))
-            })
             searchedMarkers.map((searchedMarker) => {
                 searchedMarker.setVisible(false)
                 markers.map((marker) => {
                     searchedMarker.id === marker.id ? searchedMarker.setVisible(true) : ''
                 })
             })
+            this.setState({
+                searchedMapPoints: mapPoints.filter((mapPoint) => match.test(mapPoint.title)),
+                searchedMarkers: markers.filter((marker) => match.test(marker.title))
+            })
         } else {
+            markers.map((marker) => marker.setVisible(true))
             this.setState({
                 searchedMapPoints: mapPoints,
                 searchedMarkers: markers
             })
-            markers.map((marker) => marker.setVisible(true))
         }
     }
 
