@@ -8,6 +8,7 @@ class Sidebar extends Component {
         let { markers } = this.props
         markers.map((marker) => {
             if(marker.title === mapPoints) {
+                //e.target.innerText
                 window.google.maps.event.trigger(marker, 'click')
             }
             return ''

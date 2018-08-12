@@ -42,12 +42,12 @@ class App extends Component {
         })
 
         let { mapPoints, searchedMapPoints, markers } = this.state
+
         //mapPoints.map((mapPoint)
         searchedMapPoints.map((mapPoint, index) => {
             //get data from mapPoints
             const mapPointPosition = mapPoint.location
             const mapPointTitle = mapPoint.title
-
 
             //initialize animated markers
             let marker = new google.maps.Marker({
@@ -55,7 +55,8 @@ class App extends Component {
                 position: mapPointPosition,
                 title: mapPointTitle,
                 animation: google.maps.Animation.DROP,
-                id: index
+                id: index,
+                visible: true
             })
 
             //marker is briefly animated when clicked
@@ -69,7 +70,6 @@ class App extends Component {
                     }, 100)
                 }
             })
-
             //marker displays infowindow when clicked
             marker.addListener('click', function() {
                 fillInfoWindow(this, mapInfoWindow)
@@ -110,42 +110,36 @@ class App extends Component {
             }
         }
         //end fillInfoWindow
+        //this.setState({ map })
     }
     /****END INITMAP****/
 
     //filters through points of interest & updates UI based on result
     searchMapPoints = (query) => {
         this.setState({ query })
-        let { mapPoints, markers } = this.state
+        let { mapPoints, markers, searchedMarkers } = this.state
         if (query) {
             const match = new RegExp(escapeRegExp(query), 'i')
+            markers.map((marker) => marker.setVisible(false))
             this.setState({
                 searchedMapPoints: mapPoints.filter((mapPoint) => match.test(mapPoint.title)),
                 searchedMarkers: markers.filter((marker) => match.test(marker.title))
             })
-
-            //this.toggleMarkerVisibility()
-
+            markers: searchedMarkers.map((searchedMarker) => {
+                searchedMarker.setVisible(false)
+                markers.map((marker) => {
+                    searchedMarker.id === marker.id ? searchedMarker.setVisible(true) : ''
+                })
+            })
+            this.setState({ markers })
         } else {
             this.setState({
                 searchedMapPoints: mapPoints,
                 searchedMarkers: markers
             })
-            //else hide marker
-            //this.toggleMarkerVisibility()
+            markers.map((marker) => marker.setVisible(true))
         }
     }
-
-    /*toggleMarkerVisibility = (mapPoints) => {
-        let { markers } = this.state
-        markers.map((marker) => {
-            if (marker.id === mapPoints) {
-                marker.setVisible(true)
-            } else {
-                marker.setVisible(false)
-            }
-        })
-    }*/
 
     /*
     Show all markers by default
