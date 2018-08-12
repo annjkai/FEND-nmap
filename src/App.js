@@ -40,8 +40,8 @@ class App extends Component {
             center: {lat: 51.3397, lng: 12.3731},
             zoom: 13
         })
-
-        let { mapPoints, searchedMapPoints, markers } = this.state
+        //access state
+        let { searchedMapPoints, markers } = this.state
 
         //mapPoints.map((mapPoint)
         searchedMapPoints.map((mapPoint, index) => {
@@ -55,8 +55,7 @@ class App extends Component {
                 position: mapPointPosition,
                 title: mapPointTitle,
                 animation: google.maps.Animation.DROP,
-                id: index,
-                visible: true
+                id: index
             })
 
             //marker is briefly animated when clicked
@@ -75,22 +74,9 @@ class App extends Component {
                 fillInfoWindow(this, mapInfoWindow)
             })
 
-            //const listItemId = document.getElementById(mapPoint.id)
-
-            //event listener to activate markers when list item is clicked
-            /*google.maps.event.addDomListener(listItemId, 'click', function() {
-                fillInfoWindow(marker, mapInfoWindow)
-                marker.setAnimation(google.maps.Animation.BOUNCE)
-                setTimeout(function() {
-                    marker.setAnimation(null)
-                }, 100)
-            })*/
-
             //push markers to state
             markers.push(marker)
-
             return ''
-            /*still in map method*/
         })
 
         //create infowindow
@@ -109,29 +95,28 @@ class App extends Component {
                 })
             }
         }
-        //end fillInfoWindow
-        //this.setState({ map })
     }
     /****END INITMAP****/
 
     //filters through points of interest & updates UI based on result
     searchMapPoints = (query) => {
         this.setState({ query })
-        let { mapPoints, markers, searchedMarkers } = this.state
+        //access state
+        let { mapPoints, markers } = this.state
         if (query) {
             const match = new RegExp(escapeRegExp(query), 'i')
-            markers.map((marker) => marker.setVisible(false))
-            searchedMarkers.map((searchedMarker) => {
-                searchedMarker.setVisible(false)
-                markers.map((marker) => {
-                    searchedMarker.id === marker.id ? searchedMarker.setVisible(true) : ''
-                })
+            //set markers to not visible to start - thanks to Mariola Karpiewska for her help with this
+            markers.forEach((marker) => {
+                marker.setVisible(false)
             })
+            //update state based on matches, set matching markers to visible
             this.setState({
                 searchedMapPoints: mapPoints.filter((mapPoint) => match.test(mapPoint.title)),
                 searchedMarkers: markers.filter((marker) => match.test(marker.title))
+                                        .forEach((marker) => marker.setVisible(true))
             })
         } else {
+            //if no query is entered, all list items and markers are visible by default
             markers.map((marker) => marker.setVisible(true))
             this.setState({
                 searchedMapPoints: mapPoints,
@@ -140,30 +125,24 @@ class App extends Component {
         }
     }
 
-    /*
-    Show all markers by default
-    As list items get filtered, check if they share id with marker.
-    If they DO NOT share id with lit item, hide them/toggle visibility to false
-    If they DO share id, keep displaying
-    (Restore visibility once they share id)
-    */
-
   render() {
     let { mapPoints, searchedMapPoints, markers } = this.state
     return (
         <div className="app">
-            {/*Route to Sidebar.js*/
-            /*Route to Map.js*/}
-            <Route exact path="/" render={() => (
-                <div>
-                    <Sidebar
-                        mapPoints={mapPoints}
-                        searchedMapPoints={searchedMapPoints}
-                        markers={markers}
-                        searchMapPoints={this.searchMapPoints.bind(this)} />
-                    <Map />
-                </div>
-            )} />
+            <ErrorBoundary>
+                {/*Route to Sidebar.js*/
+                /*Route to Map.js*/}
+                <Route exact path="/" render={() => (
+                    <div>
+                        <Sidebar
+                            mapPoints={mapPoints}
+                            searchedMapPoints={searchedMapPoints}
+                            markers={markers}
+                            searchMapPoints={this.searchMapPoints.bind(this)} />
+                        <Map />
+                    </div>
+                )} />
+             </ErrorBoundary>
         </div>
     )}}
 

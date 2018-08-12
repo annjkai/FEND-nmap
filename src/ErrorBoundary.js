@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+//REFERENCE: https://reactjs.org/docs/error-boundaries.html
 class ErrorBoundary extends Component {
     state = { hasError: false }
 
