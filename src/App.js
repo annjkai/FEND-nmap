@@ -125,13 +125,12 @@ class App extends Component {
                 searchedMapPoints: mapPoints.filter((mapPoint) => match.test(mapPoint.title)),
                 searchedMarkers: markers.filter((marker) => match.test(marker.title))
             })
-            markers: searchedMarkers.map((searchedMarker) => {
+            searchedMarkers.map((searchedMarker) => {
                 searchedMarker.setVisible(false)
                 markers.map((marker) => {
                     searchedMarker.id === marker.id ? searchedMarker.setVisible(true) : ''
                 })
             })
-            this.setState({ markers })
         } else {
             this.setState({
                 searchedMapPoints: mapPoints,
