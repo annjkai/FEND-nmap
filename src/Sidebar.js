@@ -3,7 +3,7 @@ import './App.css';
 
 class Sidebar extends Component {
 
-    //check whether the marker and the mapPoint share a title - if yes, call marker click animation
+    /*check whether the marker and the mapPoint share a title - if yes, call marker animation on list item click via onChange method, see here: https://github.com/hpneo/gmaps/issues/40*/
     triggerMarkerAnimation = (mapPoint) => {
         let { markers } = this.props
         markers.map((marker) => {
@@ -45,7 +45,7 @@ class Sidebar extends Component {
                                 <li key={mapPoint.id} id={mapPoint.id}>
                                     <a role="listitem"
                                        tabIndex="0"
-                                       onClick={() => this.triggerMarkerAnimation(mapPoint.title)}>
+                                       onClick={(event) => this.triggerMarkerAnimation(mapPoint.title)}>
                                        {mapPoint.title}
                                     </a>
                                 </li>

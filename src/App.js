@@ -162,8 +162,7 @@ class App extends Component {
                         mapPoints={mapPoints}
                         searchedMapPoints={searchedMapPoints}
                         markers={markers}
-                        searchMapPoints={this.searchMapPoints.bind(this)}
-                         />
+                        searchMapPoints={this.searchMapPoints.bind(this)} />
                     <Map />
                 </div>
             )} />
