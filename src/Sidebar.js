@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import './App.css';
 
 class Sidebar extends Component {
-    //has markers props
 
-    onMarkerClick = (markers) => {
-        console.log("i was clicked");
+    //check whether the marker and the mapPoint share a title - if yes, call marker click animation
+    triggerMarkerAnimation = (mapPoint) => {
+        let { markers } = this.props
+        markers.map((marker) => {
+            if(marker.title === mapPoint) {
+                window.google.maps.event.trigger(marker, 'click')
+            }
+        })
     }
 
     render() {
@@ -39,7 +44,8 @@ class Sidebar extends Component {
                             {searchedMapPoints.map((mapPoint) =>
                                 <li key={mapPoint.id} id={mapPoint.id}>
                                     <a role="listitem"
-                                       tabIndex="0">
+                                       tabIndex="0"
+                                       onClick={() => this.triggerMarkerAnimation(mapPoint.title)}>
                                        {mapPoint.title}
                                     </a>
                                 </li>

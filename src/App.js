@@ -78,13 +78,13 @@ class App extends Component {
             const listItemId = document.getElementById(mapPoint.id)
 
             //event listener to activate markers when list item is clicked
-            google.maps.event.addDomListener(listItemId, 'click', function() {
+            /*google.maps.event.addDomListener(listItemId, 'click', function() {
                 fillInfoWindow(marker, mapInfoWindow)
                 marker.setAnimation(google.maps.Animation.BOUNCE)
                 setTimeout(function() {
                     marker.setAnimation(null)
                 }, 100)
-            })
+            })*/
 
             //push markers to state
             markers.push(marker)
