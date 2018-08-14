@@ -165,10 +165,3 @@ a:visited {
     height: 55vh;
     }
  }
-
- @media (max-width: 1050px) {
-   .map-style {
-     width: 100%;
-     height: 54vh;
-     }
-  }

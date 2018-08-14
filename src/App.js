@@ -35,6 +35,16 @@ class App extends Component {
          })
     }
 
+    getFoursquareData = (query, location) => {
+        const endPoint = "https://api.foursquare.com/v2/venues/VENUE_ID/photos"
+        const params = {
+            client_id: "E50QB5BVVUKE0MJPO1ZRAI3CJ0OC5ZLF5IGCZRYABTC2LYTI",
+            client_secret: "TQ45PRDSPDAN21YQQEIZ3YEDRS3EQLV1GQLCHVHWAA4AGVET",
+            query: query,
+            near: location
+        }
+    }
+
     initMap = () => {
         let map = new google.maps.Map(document.getElementById('map'),{
             center: {lat: 51.3397, lng: 12.3731},
