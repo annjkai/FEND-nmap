@@ -2,54 +2,65 @@
             {
                 "id": "000",
                 "title": "Battle of the Nations Monument",
-                "location": {"lat": 51.3124, "lng": 12.4133}
+                "location": {"lat": 51.3124, "lng": 12.4133},
+                "venueID": "4ba552c1f964a520b0fa38e3"
             },
             {
                 "id": "001",
                 "title": "St. Thomas Church",
-                "location": {"lat": 51.3393, "lng": 12.3725}
+                "location": {"lat": 51.3393, "lng": 12.3725},
+                "venueID": "4b769c8cf964a52065542ee3"
             },
             {
                 "id": "002",
                 "title": "Leipzig Opera",
-                "location": {"lat": 51.3404, "lng": 12.3814}
+                "location": {"lat": 51.3404, "lng": 12.3814},
+                "venueID": "4b8986aaf964a520e03e32e3"
             },
             {
                 "id": "003",
                 "title": "Clara-Zetkin Park",
-                "location": {"lat": 51.3303, "lng": 12.3592}
+                "location": {"lat": 51.3303, "lng": 12.3592},
+                "venueID": "4bcb3282b6c49c747fa49191"
             },
             {
                 "id": "004",
                 "title": "Old Town Hall",
-                "location": {"lat": 51.3403, "lng": 12.3752}
+                "location": {"lat": 51.3403, "lng": 12.3752},
+                "venueID": "4b62d1ebf964a52008542ae3"
             },
             {
                 "id": "005",
                 "title": "New Town Hall",
-                "location": {"lat": 51.3361, "lng": 12.3728}
+                "location": {"lat": 51.3361, "lng": 12.3728},
+                "venueID": "4b55d0a4f964a5203cf127e3"
             },
             {
                 "id": "006",
                 "title": "Leipzig Zoological Garden",
-                "location": {"lat": 51.3486, "lng": 12.3707}
+                "location": {"lat": 51.3486, "lng": 12.3707},
+                "venueID": "4c6fc9e2d274b60c9482d70d"
             },
             {
                 "id": "007",
                 "title": "Red Bull Arena",
-                "location": {"lat": 51.3456, "lng": 12.3474}
+                "location": {"lat": 51.3456, "lng": 12.3474},
+                "venueID": "4c4af464c668e21eac8060f9"
             },
             {
                 "id": "008",
                 "title": "Baumwollspinnerei",
-                "location": {"lat": 51.3260, "lng": 12.3175}
+                "location": {"lat": 51.3260, "lng": 12.3175},
+                "venueID": "4bdc25ae2a3a0f471ba1b1b6"
             },
             {"id": "009",
                 "title": "Zeitgeschichtliches Forum",
-                "location": {"lat": 51.3398, "lng": 12.3757}
+                "location": {"lat": 51.3398, "lng": 12.3757},
+                "venueID": "4ba5555ff964a520dffb38e3"
             },
             {"id": "010",
                 "title": "St. Nicholas Church",
-                "location": {"lat": 51.3403, "lng": 12.3785}
+                "location": {"lat": 51.3403, "lng": 12.3785},
+                "venueID": "51b22def498e305edda50fa1"
             }
         ]

@@ -7,9 +7,10 @@ import Map from './Map';
 import ErrorBoundary from './ErrorBoundary';
 import escapeRegExp from 'escape-string-regexp';
 
-import axios from 'axios';
+//import axios from 'axios';
 /* global google */
 
+//handle potential problems with faulty Google Maps API keys
 window.gm_authFailure = function() {
     alert("Oops, something went wrong! Please try again.")
 }
@@ -21,7 +22,8 @@ class App extends Component {
         mapPoints: pois,
         searchedMapPoints: [],
         searchedMarkers: [],
-        query: ''
+        query: '',
+        foursquareData: []
     }
 
     componentDidMount() {
@@ -29,7 +31,7 @@ class App extends Component {
         //async loading of the Google Maps script
         loadJS('https://maps.googleapis.com/maps/api/js?key=AIzaSyAvTTYIbLSapu-D1mVwX7NWEaJ_FqRF06s&v=3&callback=initMap')
         //gets API data
-        this.getFoursquareData("sights", "leipzig")
+        this.getFoursquareData()
         //sets the state to contain all mapPoints & markers by default
         this.setState({
             searchedMapPoints: this.state.mapPoints,
@@ -37,7 +39,9 @@ class App extends Component {
          })
     }
 
-    getFoursquareData = (query, location) => {
+    //https://api.foursquare.com/v2/venues/search?ll=51.3397,12.3731&intent=browse&radius=1000&query=sights&client_id=E50QB5BVVUKE0MJPO1ZRAI3CJ0OC5ZLF5IGCZRYABTC2LYTI&client_secret=TQ45PRDSPDAN21YQQEIZ3YEDRS3EQLV1GQLCHVHWAA4AGVET&v=20181408
+
+    /*getFoursquareData = (query, location) => {
         let endPoint = "https://api.foursquare.com/v2/venues/explore?"
         let params = {
             client_id: "E50QB5BVVUKE0MJPO1ZRAI3CJ0OC5ZLF5IGCZRYABTC2LYTI",
@@ -53,6 +57,55 @@ class App extends Component {
             }, this.initMap)
         })
     }
+
+    `${api_call}?ll=${latlng}&client_id=${client_id}&client_secret=${client_secret}&v=${version}`
+    */
+
+    //https://stackoverflow.com/questions/45561968/set-fetched-json-data-as-state-and-use-it
+    getFoursquareData = () => {
+        let { mapPoints } = this.state
+
+        mapPoints.forEach(function(mapPoint){
+            const venue_id = mapPoint.venueID
+            const latlng = "51.3397,12.3731"
+            const client_id = "E50QB5BVVUKE0MJPO1ZRAI3CJ0OC5ZLF5IGCZRYABTC2LYTI"
+            const client_secret = "TQ45PRDSPDAN21YQQEIZ3YEDRS3EQLV1GQLCHVHWAA4AGVET"
+            const version = "20181408"
+
+            fetch(`https://api.foursquare.com/v2/venues/${venue_id}/photos?ll=${latlng}&client_id=${client_id}&client_secret=${client_secret}&v=${version}`)
+                .then(response => response.json())
+                .catch(error => console.log("Something went wrong. Please try again later."))
+        })
+
+        //this.setState({ mapPoints })
+
+        /*
+        const latlng = "51.3397,12.3731"
+        const client_id = "E50QB5BVVUKE0MJPO1ZRAI3CJ0OC5ZLF5IGCZRYABTC2LYTI"
+        const client_secret = "TQ45PRDSPDAN21YQQEIZ3YEDRS3EQLV1GQLCHVHWAA4AGVET"
+        const version = "20181408"
+
+        fetch(`https://api.foursquare.com/v2/venues/${venue_id}/photos?ll=${latlng}&client_id=${client_id}&client_secret=${client_secret}&v=${version}`)
+
+        fetch(`https://api.foursquare.com/v2/venues/51b22def498e305edda50fa1/photos?ll=${latlng}&client_id=${client_id}&client_secret=${client_secret}&v=${version}`)
+            .then(response => response.json())
+            .then(response => console.log(response))
+            .catch(error => alert("Failed to fetch photos. Please try again"))
+            .catch(error => console.log("Something went wrong. Please try again later."))
+
+            .then(data => {
+                console.log(data)
+                this.setState({ foursquareData: data })
+            })
+            */
+        }
+
+        //const api_call = `https://api.foursquare.com/v2/venues/${mapPoints.venueID}/photos`
+
+        //fetch("https://api.foursquare.com/v2/venues/search?ll=51.3397,12.3731&client_id=E50QB5BVVUKE0MJPO1ZRAI3CJ0OC5ZLF5IGCZRYABTC2LYTI&client_secret=TQ45PRDSPDAN21YQQEIZ3YEDRS3EQLV1GQLCHVHWAA4AGVET&v=20181408")
+
+
+
 
     initMap = () => {
         let map = new google.maps.Map(document.getElementById('map'),{
@@ -103,12 +156,14 @@ class App extends Component {
 
         //populate infowindow
         function fillInfoWindow (marker, infowindow) {
+            let infoWindowContent = `<h4>${marker.title}</h4>`
+
+            //<img id="infowindow-image"></im>
+
             //check whether infowindow is already open
             if (infowindow.marker !== marker) {
                 infowindow.marker = marker
-                infowindow.setContent(
-                    `<h4 id="infowindow-title">${marker.title}</h4>`
-                )
+                infowindow.setContent(infoWindowContent)
                 infowindow.open(map, marker)
                 //clear marker prop when infowindow is closed
                 infowindow.addListener('closeclick', function() {
