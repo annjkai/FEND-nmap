@@ -28,11 +28,30 @@ class App extends Component {
         window.initMap = this.initMap
         //async loading of the Google Maps script
         loadJS('https://maps.googleapis.com/maps/api/js?key=AIzaSyAvTTYIbLSapu-D1mVwX7NWEaJ_FqRF06s&v=3&callback=initMap')
+        //gets API data
+        this.getFoursquareData("sights", "leipzig")
         //sets the state to contain all mapPoints & markers by default
         this.setState({
             searchedMapPoints: this.state.mapPoints,
             searchedMarkers: this.state.markers
          })
+    }
+
+    getFoursquareData = (query, location) => {
+        let endPoint = "https://api.foursquare.com/v2/venues/explore?"
+        let params = {
+            client_id: "E50QB5BVVUKE0MJPO1ZRAI3CJ0OC5ZLF5IGCZRYABTC2LYTI",
+            client_secret: "TQ45PRDSPDAN21YQQEIZ3YEDRS3EQLV1GQLCHVHWAA4AGVET",
+            query: query,
+            near: location,
+            v: "20181408"
+        }
+
+        axios.get(endPoint + new URLSearchParams(params)).then(response => {
+            this.setState({
+                mapPoints: response.data.response.groups[0].items
+            }, this.initMap)
+        })
     }
 
     initMap = () => {
@@ -87,7 +106,9 @@ class App extends Component {
             //check whether infowindow is already open
             if (infowindow.marker !== marker) {
                 infowindow.marker = marker
-                infowindow.setContent('<div>' + marker.title + '</div>')
+                infowindow.setContent(
+                    `<h4 id="infowindow-title">${marker.title}</h4>`
+                )
                 infowindow.open(map, marker)
                 //clear marker prop when infowindow is closed
                 infowindow.addListener('closeclick', function() {
