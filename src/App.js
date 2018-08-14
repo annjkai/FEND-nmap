@@ -7,7 +7,7 @@ import Map from './Map';
 import ErrorBoundary from './ErrorBoundary';
 import escapeRegExp from 'escape-string-regexp';
 
-//import axios from 'axios';
+import axios from 'axios';
 /* global google */
 
 window.gm_authFailure = function() {
@@ -33,16 +33,6 @@ class App extends Component {
             searchedMapPoints: this.state.mapPoints,
             searchedMarkers: this.state.markers
          })
-    }
-
-    getFoursquareData = (query, location) => {
-        const endPoint = "https://api.foursquare.com/v2/venues/VENUE_ID/photos"
-        const params = {
-            client_id: "E50QB5BVVUKE0MJPO1ZRAI3CJ0OC5ZLF5IGCZRYABTC2LYTI",
-            client_secret: "TQ45PRDSPDAN21YQQEIZ3YEDRS3EQLV1GQLCHVHWAA4AGVET",
-            query: query,
-            near: location
-        }
     }
 
     initMap = () => {
