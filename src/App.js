@@ -50,14 +50,12 @@ class App extends Component {
             near: location,
             v: "20181408"
         }
-
         axios.get(endPoint + new URLSearchParams(params)).then(response => {
             this.setState({
                 mapPoints: response.data.response.groups[0].items
             }, this.initMap)
         })
     }
-
     `${api_call}?ll=${latlng}&client_id=${client_id}&client_secret=${client_secret}&v=${version}`
     */
 
@@ -70,8 +68,11 @@ class App extends Component {
             const client_id = "E50QB5BVVUKE0MJPO1ZRAI3CJ0OC5ZLF5IGCZRYABTC2LYTI"
             const client_secret = "TQ45PRDSPDAN21YQQEIZ3YEDRS3EQLV1GQLCHVHWAA4AGVET"
             const version = "20181408"
+            const limit = 20
+            const museums = "4bf58dd8d48988d181941735"
+            const radius = 1000
 
-            fetch(`https://api.foursquare.com/v2/venues/search?ll=${latlng}&client_id=${client_id}&client_secret=${client_secret}&v=${version}`)
+            fetch(`https://api.foursquare.com/v2/venues/search?ll=${latlng}&client_id=${client_id}&client_secret=${client_secret}&v=${version}&categoryId=${museums}&radius=${radius}&limit=${limit}`)
                 .then(function(response) { return response.json() })
                 .then(data => this.setState({ foursquareVenues: data.response.venues }))
                 .catch(error => console.log(error))
@@ -85,7 +86,6 @@ class App extends Component {
             console.log(foursquareVenues);
         })
         .catch(error => console.log(error))
-
         .then(function(data) {
             console.log(data.response.venues);
             let venues = []
@@ -100,15 +100,12 @@ class App extends Component {
         const client_id = "E50QB5BVVUKE0MJPO1ZRAI3CJ0OC5ZLF5IGCZRYABTC2LYTI"
         const client_secret = "TQ45PRDSPDAN21YQQEIZ3YEDRS3EQLV1GQLCHVHWAA4AGVET"
         const version = "20181408"
-
         fetch(`https://api.foursquare.com/v2/venues/${venue_id}/photos?ll=${latlng}&client_id=${client_id}&client_secret=${client_secret}&v=${version}`)
-
         fetch(`https://api.foursquare.com/v2/venues/51b22def498e305edda50fa1/photos?ll=${latlng}&client_id=${client_id}&client_secret=${client_secret}&v=${version}`)
             .then(response => response.json())
             .then(response => console.log(response))
             .catch(error => alert("Failed to fetch photos. Please try again"))
             .catch(error => console.log("Something went wrong. Please try again later."))
-
             .then(data => {
                 console.log(data)
                 this.setState({ foursquareData: data })

@@ -135,7 +135,8 @@ a:visited {
      position: relative;
  }
  .sidebar-places-list {
-
+    font-size: 0.9em;
+    left: 0;
  }
 
  @media (max-width: 900px) {
@@ -167,4 +168,3 @@ a:visited {
  }
 
  /*==== styling for infowindow ====*/
- 

@@ -17,7 +17,7 @@ class Sidebar extends Component {
             <div className="sidebar-container" role="menu">
                 <h1 className="main-heading" aria-label="Welcome to Leipzig heading">Welcome to Leipzig!</h1>
                 {/*Atom's highlighting syntax for JSX is pretty borked, that's why I used `&#39;` instead of an apostrophe*/}
-                <p className="sub-heading">Discover the best sights of Goethe&#39;s "Little Paris"</p>
+                <p className="sub-heading">Discover the best museums in Goethe&#39;s "Little Paris"</p>
 
                 {/*search bar*/}
                 <div className="search-places">
