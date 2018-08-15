@@ -12,7 +12,10 @@ class Sidebar extends Component {
     }
 
     render() {
-        let { searchMapPoints, query, searchedMapPoints, foursquareVenues } = this.props
+        let { searchMapPoints, query, searchedMapPoints, leipzigVenues } = this.props
+    //    leipzigVenues.map((leipzigVenue) => {
+    //        console.log(leipzigVenue.name);
+    //    })
         return (
             <div className="sidebar-container" role="menu">
                 <h1 className="main-heading" aria-label="Welcome to Leipzig heading">Welcome to Leipzig!</h1>
@@ -26,8 +29,8 @@ class Sidebar extends Component {
                              tabIndex="0">
                             <input
                                 type="text"
-                                placeholder="Search for attractions"
-                                aria-label="Search for attractions"
+                                placeholder="Search for museums"
+                                aria-label="Search for museums"
                                 role="search"
                                 value={query}
                                 onChange={(event) => searchMapPoints(event.target.value)}
@@ -39,24 +42,24 @@ class Sidebar extends Component {
                 {/*list of places*/}
                 <div className="sidebar-places-container" role="listbox">
                     <ul className="sidebar-places-list">
-                            {searchedMapPoints.map((mapPoint) =>
-                                <li key={mapPoint.id} id={mapPoint.id}>
+                            {searchedMapPoints.map((leipzigVenue) =>
+                                <li key={leipzigVenue.id} id={leipzigVenue.id}>
                                     <a role="listitem"
                                        tabIndex="0"
-                                       onClick={(event) => this.markerAnimation(mapPoint.title)}>
-                                       {mapPoint.title}
+                                       onClick={(event) => this.markerAnimation(leipzigVenue.title)}>
+                                       {leipzigVenue.name}
                                     </a>
                                 </li>
                             )}
                     </ul>
                 </div>
 
-                {/*Third-party API attribution*/}
+                {/*Third-party API attribution
                 <div className="sidebar-attribution" tabIndex="-1">
                     <p>Third-party data provided by Google Maps</p>
                     <p> and Foursquare</p>
                     <p>Annika Kaiser &copy; 2018</p>
-                </div>
+                </div>*/}
             </div>
         )
     }

@@ -19,11 +19,11 @@ class App extends Component {
     state = {
         map: '',
         markers: [],
-        mapPoints: pois,
+        //mapPoints: pois,
         searchedMapPoints: [],
         searchedMarkers: [],
         query: '',
-        foursquareVenues: []
+        leipzigVenues: []
     }
 
     componentDidMount() {
@@ -33,10 +33,11 @@ class App extends Component {
         //gets API data
         this.getFoursquareData()
         //sets the state to contain all mapPoints & markers by default
-        this.setState({
-            searchedMapPoints: this.state.mapPoints,
+        /*this.setState({
+            //searchedMapPoints: this.state.leipzigVenues,
             searchedMarkers: this.state.markers
-         })
+         })*/
+         console.log("#1 mounted");
     }
 
     //https://api.foursquare.com/v2/venues/search?ll=51.3397,12.3731&intent=browse&radius=1000&query=sights&client_id=E50QB5BVVUKE0MJPO1ZRAI3CJ0OC5ZLF5IGCZRYABTC2LYTI&client_secret=TQ45PRDSPDAN21YQQEIZ3YEDRS3EQLV1GQLCHVHWAA4AGVET&v=20181408
@@ -61,7 +62,7 @@ class App extends Component {
 
     //https://stackoverflow.com/questions/45561968/set-fetched-json-data-as-state-and-use-it
     getFoursquareData = () => {
-        let { foursquareVenues } = this.state
+        let { leipzigVenues } = this.state
 
             //const venue_id = mapPoint.venueID
             const latlng = "51.3397,12.3731"
@@ -74,8 +75,10 @@ class App extends Component {
 
             fetch(`https://api.foursquare.com/v2/venues/search?ll=${latlng}&client_id=${client_id}&client_secret=${client_secret}&v=${version}&categoryId=${museums}&radius=${radius}&limit=${limit}`)
                 .then(function(response) { return response.json() })
-                .then(data => this.setState({ foursquareVenues: data.response.venues }))
+                .then(data => this.setState({ leipzigVenues: data.response.venues }))
                 .catch(error => console.log(error))
+
+            console.log("#2 data fetched");
     }
 
     /*fetch(`https://api.foursquare.com/v2/venues/search?ll=${latlng}&client_id=${client_id}&client_secret=${client_secret}&v=${version}`)
@@ -180,6 +183,7 @@ class App extends Component {
                 })
             }
         }
+        console.log("#3 init map");
     }
     /****END INITMAP****/
 
@@ -187,7 +191,7 @@ class App extends Component {
     searchMapPoints = (query) => {
         this.setState({ query })
         //access state
-        let { mapPoints, markers } = this.state
+        let { markers, leipzigVenues } = this.state
         if (query) {
             const match = new RegExp(escapeRegExp(query), 'i')
             //set markers to not visible to start - thanks to Mariola Karpiewska for her help with this
@@ -196,23 +200,26 @@ class App extends Component {
             })
             //update state based on matches, set matching markers to visible
             this.setState({
-                searchedMapPoints: mapPoints.filter((mapPoint) => match.test(mapPoint.title)),
-                searchedMarkers: markers.filter((marker) => match.test(marker.title))
-                                        .forEach((marker) => marker.setVisible(true))
+                searchedMapPoints: leipzigVenues.filter((leipzigVenue) => match.test(leipzigVenue.name))
             })
         } else {
             //if no query is entered, all list items and markers are visible by default
             markers.map((marker) => marker.setVisible(true))
             this.setState({
-                searchedMapPoints: mapPoints,
+                searchedMapPoints: leipzigVenues,
                 searchedMarkers: markers
             })
         }
+        console.log("#4 searched something");
     }
 
   render() {
-    let { mapPoints, searchedMapPoints, markers, foursquareVenues } = this.state
-    console.log(foursquareVenues);
+    let { searchedMapPoints, markers, leipzigVenues } = this.state
+
+    console.log();
+    /*leipzigVenues.map((leipzigVenue) => {
+        console.log(leipzigVenue.name);
+    })*/
     return (
         <div className="app">
             <ErrorBoundary>
@@ -221,9 +228,8 @@ class App extends Component {
                 <Route exact path="/" render={() => (
                     <div>
                         <Sidebar
-                            mapPoints={mapPoints}
                             searchedMapPoints={searchedMapPoints}
-                            foursquareVenues={foursquareVenues}
+                            leipzigVenues={leipzigVenues}
                             markers={markers}
                             searchMapPoints={this.searchMapPoints.bind(this)} />
                         <Map />
