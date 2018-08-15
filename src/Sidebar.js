@@ -12,7 +12,7 @@ class Sidebar extends Component {
     }
 
     render() {
-        let { searchMapPoints, query, searchedMapPoints } = this.props
+        let { searchMapPoints, query, searchedMapPoints, foursquareVenues } = this.props
         return (
             <div className="sidebar-container" role="menu">
                 <h1 className="main-heading" aria-label="Welcome to Leipzig heading">Welcome to Leipzig!</h1>

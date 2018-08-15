@@ -23,7 +23,7 @@ class App extends Component {
         searchedMapPoints: [],
         searchedMarkers: [],
         query: '',
-        foursquareData: []
+        foursquareVenues: []
     }
 
     componentDidMount() {
@@ -63,19 +63,35 @@ class App extends Component {
 
     //https://stackoverflow.com/questions/45561968/set-fetched-json-data-as-state-and-use-it
     getFoursquareData = () => {
-        let { mapPoints } = this.state
+        let { foursquareVenues } = this.state
 
-        mapPoints.forEach(function(mapPoint){
-            const venue_id = mapPoint.venueID
+            //const venue_id = mapPoint.venueID
             const latlng = "51.3397,12.3731"
             const client_id = "E50QB5BVVUKE0MJPO1ZRAI3CJ0OC5ZLF5IGCZRYABTC2LYTI"
             const client_secret = "TQ45PRDSPDAN21YQQEIZ3YEDRS3EQLV1GQLCHVHWAA4AGVET"
             const version = "20181408"
 
-            fetch(`https://api.foursquare.com/v2/venues/${venue_id}/photos?ll=${latlng}&client_id=${client_id}&client_secret=${client_secret}&v=${version}`)
-                .then(response => response.json())
-                .catch(error => console.log("Something went wrong. Please try again later."))
+            fetch(`https://api.foursquare.com/v2/venues/search?ll=${latlng}&client_id=${client_id}&client_secret=${client_secret}&v=${version}`)
+                .then(function(response) { return response.json() })
+                .then(data => this.setState({ foursquareVenues: data.response.venues }))
+                .catch(error => console.log(error))
+    }
+
+    /*fetch(`https://api.foursquare.com/v2/venues/search?ll=${latlng}&client_id=${client_id}&client_secret=${client_secret}&v=${version}`)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .then(function(data) {
+            let foursquareVenues = data
+            console.log(foursquareVenues);
         })
+        .catch(error => console.log(error))
+
+        .then(function(data) {
+            console.log(data.response.venues);
+            let venues = []
+            venues.push(data.response.venues)
+            this.setState({ foursqVenues: venues })
+        })*/
 
         //this.setState({ mapPoints })
 
@@ -98,14 +114,10 @@ class App extends Component {
                 this.setState({ foursquareData: data })
             })
             */
-        }
 
         //const api_call = `https://api.foursquare.com/v2/venues/${mapPoints.venueID}/photos`
 
         //fetch("https://api.foursquare.com/v2/venues/search?ll=51.3397,12.3731&client_id=E50QB5BVVUKE0MJPO1ZRAI3CJ0OC5ZLF5IGCZRYABTC2LYTI&client_secret=TQ45PRDSPDAN21YQQEIZ3YEDRS3EQLV1GQLCHVHWAA4AGVET&v=20181408")
-
-
-
 
     initMap = () => {
         let map = new google.maps.Map(document.getElementById('map'),{
@@ -202,7 +214,8 @@ class App extends Component {
     }
 
   render() {
-    let { mapPoints, searchedMapPoints, markers } = this.state
+    let { mapPoints, searchedMapPoints, markers, foursquareVenues } = this.state
+    console.log(foursquareVenues);
     return (
         <div className="app">
             <ErrorBoundary>
@@ -213,6 +226,7 @@ class App extends Component {
                         <Sidebar
                             mapPoints={mapPoints}
                             searchedMapPoints={searchedMapPoints}
+                            foursquareVenues={foursquareVenues}
                             markers={markers}
                             searchMapPoints={this.searchMapPoints.bind(this)} />
                         <Map />
