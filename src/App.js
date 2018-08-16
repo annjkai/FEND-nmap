@@ -43,7 +43,7 @@ class App extends Component {
                 })
                 .catch(function(error) { console.log(error) })
 
-            let { leipzigVenues } = this.state
+            const { leipzigVenues } = this.state
             console.log("#1 data fetched")
     }
 
@@ -60,9 +60,6 @@ class App extends Component {
             //searchedMarkers: this.state.markers
          })
          console.log("#2 mounted");
-         this.state.leipzigVenues.map((leipzigVenue) => {
-             console.log(leipzigVenue.name);
-         })
     }
 
     initMap = () => {
@@ -71,7 +68,7 @@ class App extends Component {
             zoom: 14
         })
         //access state
-        let { searchedVenues, markers } = this.state
+        const { searchedVenues, markers } = this.state
 
         //mapPoints.map((mapPoint)
         searchedVenues.map((venue, index) => {
@@ -135,7 +132,7 @@ class App extends Component {
     searchVenues = (query) => {
         this.setState({ query })
         //access state
-        let { markers, leipzigVenues } = this.state
+        const { markers, leipzigVenues } = this.state
         if (query) {
             const match = new RegExp(escapeRegExp(query), 'i')
             //set markers to not visible to start - thanks to Mariola Karpiewska for her help with this
@@ -160,7 +157,7 @@ class App extends Component {
     }
 
   render() {
-    let { searchedVenues, markers, leipzigVenues } = this.state
+    const { searchedVenues, markers, leipzigVenues } = this.state
 
     return (
         <div className="app">

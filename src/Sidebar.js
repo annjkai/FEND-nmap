@@ -5,14 +5,14 @@ class Sidebar extends Component {
 
     /*check whether the marker and the mapPoint share a title - if yes, call marker animation on list item click via onChange method, see here for "event.trigger": https://github.com/hpneo/gmaps/issues/40*/
     markerAnimation (leipzigVenues) {
-        let { markers } = this.props
+        const { markers } = this.props
         markers.forEach(function (marker) {
             marker.title === leipzigVenues ? window.google.maps.event.trigger(marker, 'click') : ''
         })
     }
 
     render() {
-        let { searchVenues, query, searchedVenues, leipzigVenues } = this.props
+        const { searchVenues, query, searchedVenues, leipzigVenues } = this.props
     //    leipzigVenues.map((leipzigVenue) => {
     //        console.log(leipzigVenue.name);
     //    })
