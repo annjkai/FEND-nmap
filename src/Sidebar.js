@@ -13,9 +13,6 @@ class Sidebar extends Component {
 
     render() {
         const { searchVenues, query, searchedVenues, leipzigVenues } = this.props
-    //    leipzigVenues.map((leipzigVenue) => {
-    //        console.log(leipzigVenue.name);
-    //    })
         return (
             <div className="sidebar-container" role="menu">
                 <h1 className="main-heading" aria-label="Welcome to Leipzig heading">Welcome to Leipzig!</h1>

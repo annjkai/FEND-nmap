@@ -4,8 +4,6 @@ import Sidebar from './Sidebar';
 import Map from './Map';
 import ErrorBoundary from './ErrorBoundary';
 import escapeRegExp from 'escape-string-regexp';
-
-//import axios from 'axios';
 /* global google */
 
 //handle potential problems with faulty Google Maps API keys
@@ -42,8 +40,6 @@ class App extends Component {
                                     searchedVenues: data.response.venues })
                 })
                 .catch(function(error) { console.log(error) })
-                //test
-            console.log("#1 data fetched")
     }
 
     componentDidMount() {
@@ -52,27 +48,16 @@ class App extends Component {
         loadJS('https://maps.googleapis.com/maps/api/js?key=AIzaSyAvTTYIbLSapu-D1mVwX7NWEaJ_FqRF06s&v=3&callback=initMap')
         //gets API data
         this.getFoursquareData()
-        //sets the state to contain all mapPoints & markers by default
-        this.setState({
-            //searchedVenues: ["boo"]
-            //searchedVenues: this.state.leipzigVenues
-            //searchedMarkers: this.state.markers
-         })
-         //test
-         console.log("#2 mounted");
     }
 
+    //create the map & pull in markers
     initMap = () => {
         let map = new google.maps.Map(document.getElementById('map'),{
             center: {lat: 51.3397, lng: 12.3731},
             zoom: 14
         })
         this.createMarkers(map)
-        //test
-        console.log("#3 init map");
     }
-    /****END INITMAP****/
-
 
     createMarkers = (map) => {
         const { searchedVenues, markers } = this.state
@@ -85,7 +70,6 @@ class App extends Component {
                 animation: google.maps.Animation.DROP,
                 id: index
             })
-
             //marker is briefly animated when clicked
             marker.addListener('click', function() {
                 if (marker.getAnimation() !== null) {
@@ -101,7 +85,6 @@ class App extends Component {
             marker.addListener('click', function() {
                 fillInfoWindow(this, mapInfoWindow)
             })
-
             //push markers to state
             markers.push(marker)
             return ''
@@ -153,7 +136,6 @@ class App extends Component {
                 searchedMarkers: markers
             })
         }
-        console.log("#4 searched something");
     }
 
   render() {

@@ -29,7 +29,7 @@ While the project makes use of third-party data, it is still rather static. In f
 
 ## Thank You
 
-This was a very challenging project, and the help and advice of fellow Scholarship recipients was priceless. I wanted to thank by name
+This was an extremely challenging project, and the help and advice of fellow Scholarship recipients was priceless. I wanted to thank by name
 * Mariola Karpiewska, who helped me work through marker filtering
 * David Garrood, who was an early cheerleader for this project
 * Eman Zaghloul, for her excellent study jam and patient explanations
