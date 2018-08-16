@@ -2,7 +2,7 @@
 
 The Udacity Neighborhood Map project is the final Front-end Web Development Nanodegree project. The task was to create a Neighborhood Map from scratch using React. For this purpose, this project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-The app allows users and potential visitors to find the locations of museums located in or around the centre of the City of Leipzig in Saxony, Germany. Users can interact with both the listed museums and the map markers, and can search for museums by entering queries.
+The app allows users and visitors to Leipzig to find the locations of museums located in or around the centre of the City of Leipzig in Saxony, Germany. Users can interact with both the listed museums and the map markers, and can search for museums by entering queries.
 
 ## Instructions for Use
 
@@ -12,14 +12,14 @@ The app allows users and potential visitors to find the locations of museums loc
 
 ## Caching and the Service Worker
 
-The service worker is only available in production mode. To work in production mode:
+`create-react-app` comes with a built-in service worker, although it is only available in production mode. To work in production mode:
 1. Run `npm run build`
-2. Start production mode with `npm serve -s`
+This will create a build version of the app that caches the page and renders visited pages even when there is no network access.
 
 ## Third-party Data & Dependencies
-
+### APIs
 As part of the project requirements, I used the [Google Maps API](https://cloud.google.com/maps-platform/) as well as the [Foursquare API](https://developer.foursquare.com/).
-I also implemented
+### Packages
 * `create-react-app`
 * `escape-string-regexp`
 
@@ -37,4 +37,5 @@ This was an extremely challenging project, and the help and advice of fellow Sch
 * Antje Lemberg, who patiently walked me through some tricky React stuff
 * and Bram Vanroy, who swooped in at the last and saved my sanity when everything seemed irreversibly synchronous
 
-In addition, this guide was absolutely invaluable in making the map work in React without using a package: https://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/
+In addition, this guide was absolutely invaluable in making the map work in React without using a package:
+[Making Google Maps work with React](https://www.klaasnotfound.com/2016/11/06/making-google-maps-work-with-react/)
