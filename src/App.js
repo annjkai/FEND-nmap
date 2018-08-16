@@ -134,26 +134,26 @@ class App extends Component {
         if (query) {
             const match = new RegExp(escapeRegExp(query), 'i')
             //set markers to not visible to start - thanks to Mariola Karpiewska for her help with this
+            /*
             markers.forEach((marker) => {
                 marker.setVisible(false)
-            })
+            })*/
             //update state based on matches, set matching markers to visible
             this.setState({
                 searchedVenues: leipzigVenues.filter((leipzigVenue) => match.test(leipzigVenue.name))
             })
         } else {
             //if no query is entered, all list items and markers are visible by default
-            markers.map((marker) => marker.setVisible(true))
+            //markers.map((marker) => marker.setVisible(true))
             this.setState({
-                searchedVenues: leipzigVenues,
-                searchedMarkers: markers
+                searchedVenues: leipzigVenues
+                //searchedMarkers: markers
             })
             leipzigVenues.map((leipzigVenue) => {
                 console.log(leipzigVenue.name);
             })
         }
         console.log("#4 searched something");
-
     }
 
   render() {
