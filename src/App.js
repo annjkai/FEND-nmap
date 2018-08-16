@@ -65,7 +65,7 @@ class App extends Component {
         const { searchedVenues, map } = this.state
         const markers = []
         /*check that map has loaded, searchedVenues are filled and the markers haven't been created yet
-        A million thanks to Bram Vanroy from the EMEA Scholarship - for his patience and in-depth explanations - without which I'd still be stuck in async hell today*/
+        A million thanks to Bram Vanroy from the EMEA Scholarship for his patience and in-depth explanations without which I'd still be stuck in async hell today*/
         if (map && searchedVenues.length > 0 && markers.length === 0) {
           searchedVenues.forEach((venue, index) => {
               //initialize animated markers
