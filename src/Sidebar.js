@@ -56,13 +56,6 @@ class Sidebar extends Component {
                             )}
                     </ul>
                 </div>
-
-                {/*Third-party API attribution
-                <div className="sidebar-attribution" tabIndex="-1">
-                    <p>Third-party data provided by Google Maps</p>
-                    <p> and Foursquare</p>
-                    <p>Annika Kaiser &copy; 2018</p>
-                </div>*/}
             </div>
         )
     }
