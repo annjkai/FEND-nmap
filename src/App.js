@@ -122,9 +122,7 @@ class App extends Component {
         //populate infowindow
         function fillInfoWindow (marker, infowindow) {
             let infoWindowContent = `<h4>${marker.title}</h4>`
-
-            //<img id="infowindow-image"></im>
-
+            
             //check whether infowindow is already open
             if (infowindow.marker !== marker) {
                 infowindow.marker = marker
