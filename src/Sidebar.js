@@ -12,7 +12,7 @@ class Sidebar extends Component {
     }
 
     render() {
-        let { searchMapPoints, query, searchedMapPoints, leipzigVenues } = this.props
+        let { searchVenues, query, searchedVenues, leipzigVenues } = this.props
     //    leipzigVenues.map((leipzigVenue) => {
     //        console.log(leipzigVenue.name);
     //    })
@@ -33,7 +33,7 @@ class Sidebar extends Component {
                                 aria-label="Search for museums"
                                 role="search"
                                 value={query}
-                                onChange={(event) => searchMapPoints(event.target.value)}
+                                onChange={(event) => searchVenues(event.target.value)}
                                 />
                         </div>
                     </div>
@@ -42,7 +42,7 @@ class Sidebar extends Component {
                 {/*list of places*/}
                 <div className="sidebar-places-container" role="listbox">
                     <ul className="sidebar-places-list">
-                            {searchedMapPoints.map((leipzigVenue) =>
+                            {searchedVenues.map((leipzigVenue) =>
                                 <li key={leipzigVenue.id} id={leipzigVenue.id}>
                                     <a role="listitem"
                                        tabIndex="0"

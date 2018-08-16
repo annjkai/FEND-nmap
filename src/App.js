@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Route } from 'react-router-dom';
-import * as pois from './pois.json';
 import Sidebar from './Sidebar';
 import Map from './Map';
 import ErrorBoundary from './ErrorBoundary';
@@ -19,51 +17,15 @@ class App extends Component {
     state = {
         map: '',
         markers: [],
-        //mapPoints: pois,
-        searchedMapPoints: [],
-        searchedMarkers: [],
         query: '',
-        leipzigVenues: []
+        //mapPoints: pois,
+        leipzigVenues: [],
+        searchedVenues: [],
+        searchedMarkers: []
     }
-
-    componentDidMount() {
-        window.initMap = this.initMap
-        //async loading of the Google Maps script
-        loadJS('https://maps.googleapis.com/maps/api/js?key=AIzaSyAvTTYIbLSapu-D1mVwX7NWEaJ_FqRF06s&v=3&callback=initMap')
-        //gets API data
-        this.getFoursquareData()
-        //sets the state to contain all mapPoints & markers by default
-        /*this.setState({
-            //searchedMapPoints: this.state.leipzigVenues,
-            searchedMarkers: this.state.markers
-         })*/
-         console.log("#1 mounted");
-    }
-
-    //https://api.foursquare.com/v2/venues/search?ll=51.3397,12.3731&intent=browse&radius=1000&query=sights&client_id=E50QB5BVVUKE0MJPO1ZRAI3CJ0OC5ZLF5IGCZRYABTC2LYTI&client_secret=TQ45PRDSPDAN21YQQEIZ3YEDRS3EQLV1GQLCHVHWAA4AGVET&v=20181408
-
-    /*getFoursquareData = (query, location) => {
-        let endPoint = "https://api.foursquare.com/v2/venues/explore?"
-        let params = {
-            client_id: "E50QB5BVVUKE0MJPO1ZRAI3CJ0OC5ZLF5IGCZRYABTC2LYTI",
-            client_secret: "TQ45PRDSPDAN21YQQEIZ3YEDRS3EQLV1GQLCHVHWAA4AGVET",
-            query: query,
-            near: location,
-            v: "20181408"
-        }
-        axios.get(endPoint + new URLSearchParams(params)).then(response => {
-            this.setState({
-                mapPoints: response.data.response.groups[0].items
-            }, this.initMap)
-        })
-    }
-    `${api_call}?ll=${latlng}&client_id=${client_id}&client_secret=${client_secret}&v=${version}`
-    */
 
     //https://stackoverflow.com/questions/45561968/set-fetched-json-data-as-state-and-use-it
     getFoursquareData = () => {
-        let { leipzigVenues } = this.state
-
             //const venue_id = mapPoint.venueID
             const latlng = "51.3397,12.3731"
             const client_id = "E50QB5BVVUKE0MJPO1ZRAI3CJ0OC5ZLF5IGCZRYABTC2LYTI"
@@ -78,46 +40,23 @@ class App extends Component {
                 .then(data => this.setState({ leipzigVenues: data.response.venues }))
                 .catch(error => console.log(error))
 
-            console.log("#2 data fetched");
+            let { leipzigVenues } = this.state
+            console.log("#1 data fetched " + leipzigVenues)
     }
 
-    /*fetch(`https://api.foursquare.com/v2/venues/search?ll=${latlng}&client_id=${client_id}&client_secret=${client_secret}&v=${version}`)
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .then(function(data) {
-            let foursquareVenues = data
-            console.log(foursquareVenues);
-        })
-        .catch(error => console.log(error))
-        .then(function(data) {
-            console.log(data.response.venues);
-            let venues = []
-            venues.push(data.response.venues)
-            this.setState({ foursqVenues: venues })
-        })*/
-
-        //this.setState({ mapPoints })
-
-        /*
-        const latlng = "51.3397,12.3731"
-        const client_id = "E50QB5BVVUKE0MJPO1ZRAI3CJ0OC5ZLF5IGCZRYABTC2LYTI"
-        const client_secret = "TQ45PRDSPDAN21YQQEIZ3YEDRS3EQLV1GQLCHVHWAA4AGVET"
-        const version = "20181408"
-        fetch(`https://api.foursquare.com/v2/venues/${venue_id}/photos?ll=${latlng}&client_id=${client_id}&client_secret=${client_secret}&v=${version}`)
-        fetch(`https://api.foursquare.com/v2/venues/51b22def498e305edda50fa1/photos?ll=${latlng}&client_id=${client_id}&client_secret=${client_secret}&v=${version}`)
-            .then(response => response.json())
-            .then(response => console.log(response))
-            .catch(error => alert("Failed to fetch photos. Please try again"))
-            .catch(error => console.log("Something went wrong. Please try again later."))
-            .then(data => {
-                console.log(data)
-                this.setState({ foursquareData: data })
-            })
-            */
-
-        //const api_call = `https://api.foursquare.com/v2/venues/${mapPoints.venueID}/photos`
-
-        //fetch("https://api.foursquare.com/v2/venues/search?ll=51.3397,12.3731&client_id=E50QB5BVVUKE0MJPO1ZRAI3CJ0OC5ZLF5IGCZRYABTC2LYTI&client_secret=TQ45PRDSPDAN21YQQEIZ3YEDRS3EQLV1GQLCHVHWAA4AGVET&v=20181408")
+    componentDidMount() {
+        window.initMap = this.initMap
+        //async loading of the Google Maps script
+        loadJS('https://maps.googleapis.com/maps/api/js?key=AIzaSyAvTTYIbLSapu-D1mVwX7NWEaJ_FqRF06s&v=3&callback=initMap')
+        //gets API data
+        this.getFoursquareData()
+        //sets the state to contain all mapPoints & markers by default
+        this.setState({
+            searchedVenues: this.state.leipzigVenues
+            //searchedMarkers: this.state.markers
+         })
+         console.log("#2 mounted");
+    }
 
     initMap = () => {
         let map = new google.maps.Map(document.getElementById('map'),{
@@ -125,10 +64,10 @@ class App extends Component {
             zoom: 13
         })
         //access state
-        let { searchedMapPoints, markers } = this.state
+        let { searchedVenues, markers } = this.state
 
         //mapPoints.map((mapPoint)
-        searchedMapPoints.map((mapPoint, index) => {
+        searchedVenues.map((mapPoint, index) => {
             //get data from mapPoints
             const mapPointPosition = mapPoint.location
             const mapPointTitle = mapPoint.title
@@ -188,7 +127,7 @@ class App extends Component {
     /****END INITMAP****/
 
     //filters through points of interest & updates UI based on result
-    searchMapPoints = (query) => {
+    searchVenues = (query) => {
         this.setState({ query })
         //access state
         let { markers, leipzigVenues } = this.state
@@ -200,41 +139,37 @@ class App extends Component {
             })
             //update state based on matches, set matching markers to visible
             this.setState({
-                searchedMapPoints: leipzigVenues.filter((leipzigVenue) => match.test(leipzigVenue.name))
+                searchedVenues: leipzigVenues.filter((leipzigVenue) => match.test(leipzigVenue.name))
             })
         } else {
             //if no query is entered, all list items and markers are visible by default
             markers.map((marker) => marker.setVisible(true))
             this.setState({
-                searchedMapPoints: leipzigVenues,
+                searchedVenues: leipzigVenues,
                 searchedMarkers: markers
+            })
+            leipzigVenues.map((leipzigVenue) => {
+                console.log(leipzigVenue.name);
             })
         }
         console.log("#4 searched something");
+
     }
 
   render() {
-    let { searchedMapPoints, markers, leipzigVenues } = this.state
+    let { searchedVenues, markers, leipzigVenues } = this.state
 
-    console.log();
-    /*leipzigVenues.map((leipzigVenue) => {
-        console.log(leipzigVenue.name);
-    })*/
     return (
         <div className="app">
             <ErrorBoundary>
-                {/*Route to Sidebar.js*/
-                /*Route to Map.js*/}
-                <Route exact path="/" render={() => (
                     <div>
                         <Sidebar
-                            searchedMapPoints={searchedMapPoints}
                             leipzigVenues={leipzigVenues}
+                            searchedVenues={searchedVenues}
                             markers={markers}
-                            searchMapPoints={this.searchMapPoints.bind(this)} />
+                            searchVenues={this.searchVenues.bind(this)} />
                         <Map />
                     </div>
-                )} />
              </ErrorBoundary>
         </div>
     )}}
