@@ -38,20 +38,13 @@ class App extends Component {
             fetch(`https://api.foursquare.com/v2/venues/search?ll=${latlng}&client_id=${client_id}&client_secret=${client_secret}&v=${version}&categoryId=${museums}&radius=${radius}&limit=${limit}`)
                 .then(function(response) { return response.json() })
                 .then(data => {
-                    this.setState({ leipzigVenues: data.response.venues })
-                    this.initList()
+                    this.setState({ leipzigVenues: data.response.venues,
+                                    searchedVenues: data.response.venues })
                 })
                 .catch(function(error) { console.log(error) })
 
             let { leipzigVenues } = this.state
             console.log("#1 data fetched")
-    }
-
-    initList = () => {
-        this.setState({
-            searchedVenues: this.state.leipzigVenues
-            //searchedMarkers: this.state.markers
-         })
     }
 
     componentDidMount() {
@@ -75,22 +68,22 @@ class App extends Component {
     initMap = () => {
         let map = new google.maps.Map(document.getElementById('map'),{
             center: {lat: 51.3397, lng: 12.3731},
-            zoom: 13
+            zoom: 14
         })
         //access state
         let { searchedVenues, markers } = this.state
 
         //mapPoints.map((mapPoint)
-        searchedVenues.map((mapPoint, index) => {
+        searchedVenues.map((venue, index) => {
             //get data from mapPoints
-            const mapPointPosition = mapPoint.location
-            const mapPointTitle = mapPoint.title
+            //const mapPointPosition = venue.location
+            //const mapPointTitle = venue.name
 
             //initialize animated markers
             let marker = new google.maps.Marker({
                 map: map,
-                position: mapPointPosition,
-                title: mapPointTitle,
+                position: venue.location,
+                title: venue.name,
                 animation: google.maps.Animation.DROP,
                 id: index
             })
@@ -121,8 +114,8 @@ class App extends Component {
 
         //populate infowindow
         function fillInfoWindow (marker, infowindow) {
-            let infoWindowContent = `<h4>${marker.title}</h4>`
-            
+            const infoWindowContent = `<h4>${marker.title}</h4>`
+
             //check whether infowindow is already open
             if (infowindow.marker !== marker) {
                 infowindow.marker = marker
@@ -146,20 +139,21 @@ class App extends Component {
         if (query) {
             const match = new RegExp(escapeRegExp(query), 'i')
             //set markers to not visible to start - thanks to Mariola Karpiewska for her help with this
-            /*
             markers.forEach((marker) => {
                 marker.setVisible(false)
-            })*/
+            })
             //update state based on matches, set matching markers to visible
             this.setState({
-                searchedVenues: leipzigVenues.filter((leipzigVenue) => match.test(leipzigVenue.name))
+                searchedVenues: leipzigVenues.filter((leipzigVenue) => match.test(leipzigVenue.name)),
+                searchedMarkers: markers.filter((marker) => match.test(marker.title))
+                                        .forEach((marker) => marker.setVisible(true))
             })
         } else {
             //if no query is entered, all list items and markers are visible by default
             //markers.map((marker) => marker.setVisible(true))
             this.setState({
-                searchedVenues: leipzigVenues
-                //searchedMarkers: markers
+                searchedVenues: leipzigVenues,
+                searchedMarkers: markers
             })
         }
         console.log("#4 searched something");
