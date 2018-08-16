@@ -20,7 +20,7 @@ class Sidebar extends Component {
                 <p className="sub-heading">Discover the best museums in Goethe&#39;s "Little Paris"</p>
 
                 {/*third-party API attribution*/}
-                <div className="sidebar-attribution" tabIndex="-1">
+                <div className="sidebar-attribution" role="contentinfo" tabIndex="-1">
                     <p>Third-party data provided by Google Maps</p>
                     <p> and Foursquare</p>
                 </div>
