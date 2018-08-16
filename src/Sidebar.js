@@ -43,7 +43,7 @@ class Sidebar extends Component {
                 <div className="sidebar-places-container" role="listbox">
                     <ul className="sidebar-places-list">
                             {searchedVenues.map((leipzigVenue) =>
-                                <li key={leipzigVenue.id} id={leipzigVenue.id}>
+                                <li key={leipzigVenue.id}>
                                     <a role="listitem"
                                        tabIndex="0"
                                        onClick={(event) => this.markerAnimation(leipzigVenue.title)}>

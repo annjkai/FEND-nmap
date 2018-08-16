@@ -37,11 +37,21 @@ class App extends Component {
 
             fetch(`https://api.foursquare.com/v2/venues/search?ll=${latlng}&client_id=${client_id}&client_secret=${client_secret}&v=${version}&categoryId=${museums}&radius=${radius}&limit=${limit}`)
                 .then(function(response) { return response.json() })
-                .then(data => this.setState({ leipzigVenues: data.response.venues }))
-                .catch(error => console.log(error))
+                .then(data => {
+                    this.setState({ leipzigVenues: data.response.venues })
+                    this.initList()
+                })
+                .catch(function(error) { console.log(error) })
 
             let { leipzigVenues } = this.state
-            console.log("#1 data fetched " + leipzigVenues)
+            console.log("#1 data fetched")
+    }
+
+    initList = () => {
+        this.setState({
+            searchedVenues: this.state.leipzigVenues
+            //searchedMarkers: this.state.markers
+         })
     }
 
     componentDidMount() {
@@ -52,10 +62,14 @@ class App extends Component {
         this.getFoursquareData()
         //sets the state to contain all mapPoints & markers by default
         this.setState({
-            searchedVenues: this.state.leipzigVenues
+            //searchedVenues: ["boo"]
+            //searchedVenues: this.state.leipzigVenues
             //searchedMarkers: this.state.markers
          })
          console.log("#2 mounted");
+         this.state.leipzigVenues.map((leipzigVenue) => {
+             console.log(leipzigVenue.name);
+         })
     }
 
     initMap = () => {
@@ -148,9 +162,6 @@ class App extends Component {
             this.setState({
                 searchedVenues: leipzigVenues
                 //searchedMarkers: markers
-            })
-            leipzigVenues.map((leipzigVenue) => {
-                console.log(leipzigVenue.name);
             })
         }
         console.log("#4 searched something");
