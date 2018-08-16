@@ -42,8 +42,7 @@ class App extends Component {
                                     searchedVenues: data.response.venues })
                 })
                 .catch(function(error) { console.log(error) })
-
-            const { leipzigVenues } = this.state
+                //test
             console.log("#1 data fetched")
     }
 
@@ -59,6 +58,7 @@ class App extends Component {
             //searchedVenues: this.state.leipzigVenues
             //searchedMarkers: this.state.markers
          })
+         //test
          console.log("#2 mounted");
     }
 
@@ -67,15 +67,16 @@ class App extends Component {
             center: {lat: 51.3397, lng: 12.3731},
             zoom: 14
         })
-        //access state
+        this.createMarkers(map)
+        //test
+        console.log("#3 init map");
+    }
+    /****END INITMAP****/
+
+
+    createMarkers = (map) => {
         const { searchedVenues, markers } = this.state
-
-        //mapPoints.map((mapPoint)
         searchedVenues.map((venue, index) => {
-            //get data from mapPoints
-            //const mapPointPosition = venue.location
-            //const mapPointTitle = venue.name
-
             //initialize animated markers
             let marker = new google.maps.Marker({
                 map: map,
@@ -124,9 +125,8 @@ class App extends Component {
                 })
             }
         }
-        console.log("#3 init map");
+        this.setState({ markers })
     }
-    /****END INITMAP****/
 
     //filters through points of interest & updates UI based on result
     searchVenues = (query) => {
@@ -147,7 +147,7 @@ class App extends Component {
             })
         } else {
             //if no query is entered, all list items and markers are visible by default
-            //markers.map((marker) => marker.setVisible(true))
+            markers.map((marker) => marker.setVisible(true))
             this.setState({
                 searchedVenues: leipzigVenues,
                 searchedMarkers: markers
@@ -158,7 +158,6 @@ class App extends Component {
 
   render() {
     const { searchedVenues, markers, leipzigVenues } = this.state
-
     return (
         <div className="app">
             <ErrorBoundary>
