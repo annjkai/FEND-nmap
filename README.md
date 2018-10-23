@@ -1,5 +1,8 @@
 ## Neighborhood Map Project Overview
 
+**Project acceptance date: 16 August 2018**
+**[Live preview](https://ajk-neighborhood-map.netlify.com/)**
+
 The Udacity Neighborhood Map project is the final Front-end Web Development Nanodegree project. The task was to create a Neighborhood Map from scratch using React. For this purpose, this project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 The app allows users and visitors to Leipzig to find the locations of museums located in or around the centre of the City of Leipzig in Saxony, Germany. Users can interact with both the listed museums and the map markers, and can search for museums by entering queries.
