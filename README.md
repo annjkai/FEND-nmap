@@ -1,6 +1,7 @@
 ## Neighborhood Map Project Overview
 
 **Project acceptance date: 16 August 2018**
+
 **[Live preview](https://ajk-neighborhood-map.netlify.com/)**
 
 The Udacity Neighborhood Map project is the final Front-end Web Development Nanodegree project. The task was to create a Neighborhood Map from scratch using React. For this purpose, this project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
